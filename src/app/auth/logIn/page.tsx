@@ -8,7 +8,6 @@ import { Button } from "~/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -22,7 +21,7 @@ const formSchema = z.object({
   password: z.string().min(6).max(50),
 });
 
-export default function page() {
+export default function LogIn() {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),

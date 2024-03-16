@@ -3,6 +3,7 @@ import React from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useState , useEffect } from "react";
 
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
@@ -12,13 +13,11 @@ import { Separator } from "~/components/ui/separator";
 import {
   InputOTP,
   InputOTPGroup,
-  InputOTPSeparator,
   InputOTPSlot,
 } from "~/components/ui/input-otp";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -30,9 +29,9 @@ const formSchema = z.object({
   verificationCode: z.string().min(6).max(50),
 });
 
-export default function page() {
-  const [progress, setProgress] = React.useState(0);
-  const [ currTab, setCurrTab] = React.useState("account");
+export default function SignUp() {
+  const [progress, setProgress] = useState(0);
+  const [ currTab, setCurrTab] = useState("account");
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const form = useForm<z.infer<typeof formSchema>>({
@@ -54,7 +53,7 @@ export default function page() {
     },1000)
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (progress < 100) {
       setTimeout(() => {
         setProgress(progress + 10);
@@ -62,7 +61,7 @@ export default function page() {
     } else {
       setProgress(0);
     }
-  }, []);
+  },[]);
 
   return (
     <>

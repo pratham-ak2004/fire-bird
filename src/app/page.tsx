@@ -11,8 +11,8 @@ import { ChevronRightIcon } from "@radix-ui/react-icons"
 
 export default async function Home() {
   noStore();
-  const hello = await api.post.hello.query({ text: "from tRPC" });
-  const session = await getServerAuthSession();
+  // const hello = await api.post.hello.query({ text: "from tRPC" });
+  // const session = await getServerAuthSession();
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
@@ -32,6 +32,7 @@ export default async function Home() {
   );
 }
 
+// eslint-disable-next-line
 async function CrudShowcase() {
   const session = await getServerAuthSession();
   if (!session?.user) return null;
