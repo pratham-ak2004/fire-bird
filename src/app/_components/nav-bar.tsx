@@ -13,12 +13,13 @@ export default function NavBar() {
   const { setTheme , theme } = useTheme();
 
   const toggleTheme = () => {
+    
     setTheme(theme === "light" ? "dark" : "light");
   };
 
   return (
     <>
-      <div className="flex h-16 w-full justify-center bg-white dark:bg-black fixed bg-opacity-70 dark:bg-opacity-70">
+      <div className="flex h-16 w-full justify-center bg-slate-200 dark:bg-black fixed">
         <div className="flex h-full w-full max-w-screen-xl items-center p-4">
           <Link className="flex w-fit flex-row items-center gap-4" href={"/"}>
             <Image
@@ -40,12 +41,16 @@ export default function NavBar() {
               </Button>
             </li>
             <li>
-              <Button className="border-2 bg-white text-black hover:bg-slate-100 dark:bg-black dark:text-white hover:dark:bg-slate-800">
-                Sign In
-              </Button>
+              <Link href="/auth/logIn">
+                <Button className="border-2 bg-white text-black hover:bg-slate-100 dark:bg-black dark:text-white hover:dark:bg-slate-800">
+                  Sign In
+                </Button>
+              </Link>
             </li>
             <li>
-              <Button className="hidden sm:block">Create Account</Button>
+              <Link href="/auth/signUp">
+                <Button className="hidden sm:block">Create Account</Button>
+              </Link>
             </li>
           </ul>
         </div>
