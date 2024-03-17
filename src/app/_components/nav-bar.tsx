@@ -7,13 +7,11 @@ import { useTheme } from "next-themes";
 import { Label } from "~/components/ui/label";
 import { Button } from "~/components/ui/button";
 import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
-import { set } from "zod";
 
 export default function NavBar() {
   const { setTheme , theme } = useTheme();
 
   const toggleTheme = () => {
-    
     setTheme(theme === "light" ? "dark" : "light");
   };
 
@@ -41,14 +39,14 @@ export default function NavBar() {
               </Button>
             </li>
             <li>
-              <Link href="/auth/logIn">
+              <Link href="/logIn">
                 <Button className="border-2 bg-white text-black hover:bg-slate-100 dark:bg-black dark:text-white hover:dark:bg-slate-800">
                   Sign In
                 </Button>
               </Link>
             </li>
             <li>
-              <Link href="/auth/signUp">
+              <Link href="/signUp">
                 <Button className="hidden sm:block">Create Account</Button>
               </Link>
             </li>

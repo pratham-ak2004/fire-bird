@@ -72,7 +72,7 @@ export const authOptions: NextAuthOptions = {
         // Add logic here to look up the user from the credentials supplied
         const { email, password } = credentials as { email: string, password: string };
 
-        console.log( email, password);
+        console.log( email, password , req);
         
         /*
         // database user logic

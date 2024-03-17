@@ -3,7 +3,7 @@ import React from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { signIn , signOut } from "next-auth/react";
+import { signIn } from "next-auth/react";
 
 import { FcGoogle } from "react-icons/fc";
 import { Button } from "~/components/ui/button";
