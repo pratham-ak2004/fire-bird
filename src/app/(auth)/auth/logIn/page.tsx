@@ -39,7 +39,9 @@ export default function LogIn() {
     // ✅ This will be type-safe and validated.
     try{
 
-      await signIn("credentials" , {"email" : values.email , "password" : values.password});
+      const res = await signIn("credentials" , {"email" : values.email , "password" : values.password});
+      console.log(res);
+      
     }catch(err){
       console.log(err);
       

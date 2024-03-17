@@ -55,6 +55,9 @@ export default function SignUp() {
     setProgress(90);
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
+    const res = signIn("credentials", {"email" : values.email , "password" : values.password});
+    console.log(res);
+    
     console.log(values);
     setTimeout(() => {
       setProgress(100);
