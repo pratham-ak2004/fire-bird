@@ -1,12 +1,12 @@
 import "~/styles/globals.css";
-
 import { Inter } from "next/font/google";
 
 import { TRPCReactProvider } from "~/trpc/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { ThemeProvider } from "~/app/_components/theme-provider";
 
 import NavBar from "~/app/_components/nav-bar";
 import Footer from "~/app/_components/footer";
-import { ThemeProvider } from "~/app/_components/theme-provider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -27,16 +27,19 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`font-sans ${inter.variable}`}>
-        <ThemeProvider
+        <TRPCReactProvider>
+          <SpeedInsights />
+          <ThemeProvider
             attribute="class"
             defaultTheme="system"
             enableSystem
             disableTransitionOnChange
           >
-          <NavBar />
-          <TRPCReactProvider>{children}</TRPCReactProvider>
-          <Footer />
-        </ThemeProvider>
+            <NavBar />
+            {children}
+            <Footer />
+          </ThemeProvider>
+        </TRPCReactProvider>
       </body>
     </html>
   );

@@ -3,7 +3,9 @@ import React from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { signIn , signOut } from "next-auth/react";
 
+import { FcGoogle } from "react-icons/fc";
 import { Button } from "~/components/ui/button";
 import {
   Form,
@@ -32,9 +34,16 @@ export default function LogIn() {
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
+    try{
+
+      await signIn("credentials" , {"email" : values.email , "password" : values.password});
+    }catch(err){
+      console.log(err);
+      
+    }
     console.log(values);
   }
 
@@ -102,12 +111,12 @@ export default function LogIn() {
             </div>
 
             <div className="mb-2 flex w-full flex-col content-center items-center gap-4">
-              <Button className="w-[70%]" variant="secondary">
-                Sign Up with Google
+              <Button className="w-[70%]" variant="secondary" onClick={() => signIn("google")}>
+              <FcGoogle className="mr-2 size-6" />Log In with Google
               </Button>
-              <Button className="w-[70%]" variant="secondary">
-                Sign Up with Facebook
-              </Button>
+              {/* <Button className="w-[70%]" variant="secondary">
+                Log In with Facebook
+              </Button> */}
             </div>
 
 

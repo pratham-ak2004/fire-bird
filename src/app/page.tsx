@@ -1,8 +1,4 @@
 import { unstable_noStore as noStore } from "next/cache";
-
-import { CreatePost } from "~/app/_components/create-post";
-import { getServerAuthSession } from "~/server/auth";
-import { api } from "~/trpc/server";
 import Link from "next/link";
 
 import { Button } from "~/components/ui/button"
@@ -11,7 +7,8 @@ import { ChevronRightIcon } from "@radix-ui/react-icons"
 
 export default async function Home() {
   noStore();
-  // const hello = await api.post.hello.query({ text: "from tRPC" });
+
+  // const hello = await api.post.hello({ text: "from tRPC" });
   // const session = await getServerAuthSession();
 
   return (
@@ -22,32 +19,29 @@ export default async function Home() {
         </h1>
         <p className="text-wrap font-medium text-lg">A simple, fast and secure email service</p>
         <Link href="/auth/signUp">
-          <Button className="rounded-lg bg-white text-black dark:bg-black dark:text-white ">Sign Up <ChevronRightIcon className="h-4 w-4 ml-2" /></Button>
+          <Button className="rounded-lg bg-white text-black dark:bg-black dark:text-white">Sign Up <ChevronRightIcon className="h-4 w-4 ml-2" /></Button>
         </Link>
-
-
-        {/* <CrudShowcase /> */}
       </div>
+      
     </main>
   );
 }
 
-// eslint-disable-next-line
-async function CrudShowcase() {
-  const session = await getServerAuthSession();
-  if (!session?.user) return null;
+// async function CrudShowcase() {
+//   const session = await getServerAuthSession();
+//   if (!session?.user) return null;
 
-  const latestPost = await api.post.getLatest.query();
+//   const latestPost = await api.post.getLatest();
 
-  return (
-    <div className="w-full max-w-xs">
-      {latestPost ? (
-        <p className="truncate">Your most recent post: {latestPost.name}</p>
-      ) : (
-        <p>You have no posts yet.</p>
-      )}
+//   return (
+//     <div className="w-full max-w-xs">
+//       {latestPost ? (
+//         <p className="truncate">Your most recent post: {latestPost.name}</p>
+//       ) : (
+//         <p>You have no posts yet.</p>
+//       )}
 
-      <CreatePost />
-    </div>
-  );
-}
+//       <CreatePost />
+//     </div>
+//   );
+// }
