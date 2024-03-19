@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useState, useEffect } from "react";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 import { FcGoogle } from "react-icons/fc";
 import { Button } from "~/components/ui/button";
@@ -33,9 +34,14 @@ const formSchema = z.object({
   path: ["confirmPassword"]
 });
 
+interface ResponseData {
+  message:string;
+}
+
 export default function SignUp() {
   const [progress, setProgress] = useState(0);
   const [currTab, setCurrTab] = useState("account");
+  const router = useRouter();
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const passwordRegex = /^(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
@@ -50,15 +56,46 @@ export default function SignUp() {
     },
   });
 
+  const handleLogIn = async (provider:string , values:{email : string , password : string , username : string}) => {
+      if(provider === "google"){
+        await signIn(provider ,{
+          callbackUrl: "/"
+        })
+      } else if (provider === "credentials") {
+        await fetch("/api/auth/signUp", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: values.email,
+            password: values.password,
+            username: values.username,
+          }),
+        }).then(async(response) => {
+          await response.json().then((data:ResponseData) => {
+            alert("Sign Up " + data.message)
+            if(response.status === 201){
+              router.push("/logIn")
+            }else{
+              router.refresh();
+            }
+          })
+        });
+      }
+  }
+
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     setProgress(90);
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    const res = signIn("credentials", {"email" : values.email , "password" : values.password});
-    console.log(res);
-    
-    console.log(values);
+    try {
+      await handleLogIn("credentials", { email: values.email, password: values.password, username: values.userName });
+    } catch (error) {
+      console.log(error);
+    }
+
     setTimeout(() => {
       setProgress(100);
     }, 1000);
@@ -265,7 +302,7 @@ export default function SignUp() {
             </div>
 
             <div className="mb-2 flex w-full flex-col content-center items-center gap-4">
-              <Button className="w-[70%]" variant="secondary" onClick={() => signIn("google")}>
+              <Button className="w-[70%]" variant="secondary" onClick={() => signIn("google",{callbackUrl:"/"})}>
               <FcGoogle className="mr-2 size-6" />Sign Up with Google
               </Button>
               {/* <Button className="w-[70%]" variant="secondary">

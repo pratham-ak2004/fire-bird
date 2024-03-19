@@ -16,25 +16,25 @@ const inter = Inter({
 });
 
 export default function UserLayout({
-    children,
-  }: {
-    children: React.ReactNode;
-  }) {
-    return (
-      <html lang="en">
+  children
+}: {
+  children: React.ReactNode; 
+}) {  
+  return (
+    <html lang="en">
       <body className={`font-sans ${inter.variable}`}>
-      <ThemeProvider
-      attribute="class"
-      defaultTheme="system"
-      enableSystem
-      disableTransitionOnChange
-    >
-      <TRPCReactProvider>
-        <SpeedInsights />
-        {children}
-      </TRPCReactProvider>
-    </ThemeProvider></body>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <TRPCReactProvider>
+            <SpeedInsights />
+            {children}
+          </TRPCReactProvider>
+        </ThemeProvider>
+      </body>
     </html>
-    );
-  }
-  
+  );
+}

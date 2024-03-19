@@ -27,19 +27,20 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`font-sans ${inter.variable}`}>
-    <ThemeProvider
-      attribute="class"
-      defaultTheme="system"
-      enableSystem
-      disableTransitionOnChange
-    >
-      <TRPCReactProvider>
-        <SpeedInsights />
-        <NavBar />
-        {children}
-        <Footer />
-      </TRPCReactProvider>
-    </ThemeProvider></body>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <TRPCReactProvider>
+            <SpeedInsights />
+            <NavBar />
+            {children}
+            <Footer />
+          </TRPCReactProvider>
+        </ThemeProvider>
+      </body>
     </html>
   );
 }

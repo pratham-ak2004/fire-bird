@@ -7,9 +7,9 @@ import {
 import { type Adapter } from "next-auth/adapters";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
-
 import { env } from "~/env";
 import { db } from "~/server/db";
+import { EmailUser } from "@prisma/client";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -24,7 +24,7 @@ declare module "next-auth" {
       // ...other properties
       // role: UserRole;
     } & DefaultSession["user"];
-  }
+      }
 
   // interface User {
   //   // ...other properties
@@ -45,7 +45,7 @@ export const authOptions: NextAuthOptions = {
         ...session.user,
         id: user.id,
       },
-    }),
+          }),
   },
   adapter: PrismaAdapter(db) as Adapter,
   providers: [
@@ -56,39 +56,38 @@ export const authOptions: NextAuthOptions = {
 
     // Custom Email Provider
     CredentialsProvider({
-      // The name to display on the sign in form (e.g. "Sign in with...")
       name: "Credentials",
-      // `credentials` is used to generate a form on the sign in page.
-      // You can specify which fields should be submitted, by adding keys to the `credentials` object.
-      // e.g. domain, username, password, 2FA token, etc.
-      // You can pass any HTML attribute to the <input> tag through the object.
       credentials: {
-        // username: { label: "Username", type: "text"},
-        email: { label: "email", type: "text"},
-        password: { label: "Password", type: "password" }
+        email: { label: "email", type: "text" },
+        password: { label: "Password", type: "password" },
       },
 
-      async authorize(credentials , req) {
-        // Add logic here to look up the user from the credentials supplied
-        const { email, password } = credentials as { email: string, password: string };
+      async authorize(credentials){
+        const { email, password } = credentials as {
+          email: string;
+          password: string;
+        };
 
-        console.log( email, password , req);
+        const user: EmailUser | null = await db.emailUser.findFirst({
+          where: {
+            email: email,
+          },
+        });
+
+        console.log(user?.email,user?.password);
         
-        /*
-        // database user logic
-        if (user) {
-          // Any object returned will be saved in `user` property of the JWT
-          return user
+        if (user !== null && user.password === password) {
+          return Promise.resolve({
+            id: user.id,
+            email: user.email,
+            emailVerified: null,
+            image : null
+          });
         } else {
-          // If you return null then an error will be displayed advising the user to check their details.
-          return null
-  
-          // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
+          return Promise.resolve(null);
         }
-        */
-       return null;
-      }
-    })
+      },
+    }),
 
     /**
      * ...add more providers here.
