@@ -1,3 +1,4 @@
+import "~/styles/globals.css";
 import { Inter } from "next/font/google";
 
 import { TRPCReactProvider } from "~/trpc/react";
@@ -21,8 +22,8 @@ export default function UserLayout({
   children: React.ReactNode; 
 }) {  
   return (
-    <html lang="en">
-      <body className={`font-sans ${inter.variable}`}>
+    <html lang="en" className="w-screen h-screen">
+      <body className={`font-sans ${inter.variable} w-screen h-screen`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

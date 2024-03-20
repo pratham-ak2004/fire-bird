@@ -5,8 +5,8 @@ import { TRPCReactProvider } from "~/trpc/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ThemeProvider } from "~/app/_components/theme-provider";
 
-import NavBar from "~/app/_components/nav-bar";
-import Footer from "~/app/_components/footer";
+import NavBar from "~/app/_components/main-contents/nav-bar";
+import Footer from "~/app/_components/main-contents/footer";
 
 export const metadata = {
   title: "Fire Bird",

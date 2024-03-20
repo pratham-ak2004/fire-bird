@@ -1,0 +1,15 @@
+@keyframes spin {
+    0%{
+        @apply w-72
+    }
+    50%{
+        @apply w-10
+    }
+    100%{
+        @apply w-72
+    }
+}
+
+.custom-animation {
+    animation: spin 2s linear infinite;
+}

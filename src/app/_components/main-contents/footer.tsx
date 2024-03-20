@@ -57,7 +57,7 @@ export default function Footer() {
             </svg>
           </a>
         </div>
-        <Separator className="mt-4 max-w-[50rem] w-full"/>
+        <Separator className="mt-4 max-w-[50rem] w-full bg-slate-400"/>
         <Label className="opacity-70 font-normal mt-2 text-center p-4 leading-normal">FIRE MAIL Copyright © {year} <u><a href={`${process.env.NEXT_GITHUB}`}>@pratham-ak2004</a></u> - All rights reserved || Designed By: Pratham</Label>
       </div>
     </>

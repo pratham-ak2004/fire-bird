@@ -5,9 +5,10 @@ import { type NextRequest } from 'next/server'
 export async function middleware(request: NextRequest) {
 
   // eslint-disable-next-line
-    const isLoggedIn = request.cookies.get("next-auth.session-token") || request.cookies.get("credentials-token")
+    const isLoggedIn = request.cookies.get("next-auth.session-token") || request.cookies.get("credentials-token") || request.cookies.get("__Secure-next-auth.session-token")
     const isPublic = request.nextUrl.pathname === "/logIn" || request.nextUrl.pathname === "/signUp" || request.nextUrl.pathname === "/"
     // const cookie = request.cookies.get("next-auth.session-token")
+    
 
     // console.log(cookie["value"]);
     
@@ -54,6 +55,7 @@ export const config = {
   matcher: [
     "/",
     "/user",
+    "/user/:path*",
     "/signUp",
     "/logIn",
   ]
