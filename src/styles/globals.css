@@ -84,5 +84,5 @@
 }
 
 .bg-three{
-  @apply bg-slate-200 dark:bg-slate-700;
+  @apply bg-slate-200 dark:bg-slate-700 dark:text-white text-black;
 }
