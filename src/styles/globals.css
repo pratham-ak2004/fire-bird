@@ -86,3 +86,11 @@
 .bg-three{
   @apply bg-slate-200 dark:bg-slate-700 dark:text-white text-black;
 }
+
+.bg-active{
+  @apply bg-black dark:bg-white text-white dark:text-black
+}
+
+.bg-inactive{
+  @apply bg-white dark:bg-black text-black dark:text-white
+}

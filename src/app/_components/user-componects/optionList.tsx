@@ -4,14 +4,14 @@ import { MdModeEditOutline } from "react-icons/md";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 
-export default function OptionList(props: any) {
+export default function OptionList(props: { options: string }) {
   const { options } = props;
   const params = useSearchParams();
   const router = useRouter();
   const path = usePathname();
 
   const handleCatChange = (cat: string) => {
-    const tab = params.get("tab") || "mail";
+    const tab = params.get("tab") ?? "mail";
     const id = params.get("id");
     router.push(`${path}?tab=${tab}&cat=${cat}${id ? `&id=${id}` : ""}`);
   };

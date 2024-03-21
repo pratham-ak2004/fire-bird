@@ -34,7 +34,7 @@ function UserIdHelper() {
                 Fire Bird
               </Label>
             </div>
-            <OptionList options={searchParams.get("tab") || "mail"} />
+            <OptionList options={searchParams.get("tab") ?? "mail"} />
           </div>
           <div className="flex flex-col grow">
           <div className="h-20 bg-two">nav</div>
