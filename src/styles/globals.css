@@ -88,9 +88,9 @@
 }
 
 .bg-active{
-  @apply bg-black dark:bg-white text-white dark:text-black
+  @apply bg-foreground text-background
 }
 
 .bg-inactive{
-  @apply bg-white dark:bg-black text-black dark:text-white
+  @apply bg-background text-foreground
 }

@@ -89,6 +89,26 @@ export const authOptions: NextAuthOptions = {
       },
     }),
 
+    // Custom Oauth Provider
+    /*
+    {
+      id: "Credentials",
+      name: "Credentials",
+      type: "oauth",
+      authorization: "https://kauth.kakao.com/oauth/authorize",
+      token: "https://kauth.kakao.com/oauth/token",
+      userinfo: "https://kapi.kakao.com/v2/user/me",
+      profile(profile) {
+        return {
+          id: profile.id,
+          name: profile.kakao_account?.profile.nickname,
+          email: profile.kakao_account?.email,
+          image: profile.kakao_account?.profile.profile_image_url,
+        }
+      },
+    }
+    */
+
     /**
      * ...add more providers here.
      *

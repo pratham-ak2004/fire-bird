@@ -4,8 +4,7 @@ import { MdModeEditOutline } from "react-icons/md";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 
-export default function OptionList(props: { options: string }) {
-  const { options } = props;
+export default function OptionList() {
   const params = useSearchParams();
   const router = useRouter();
   const path = usePathname();
@@ -16,31 +15,31 @@ export default function OptionList(props: { options: string }) {
     router.push(`${path}?tab=${tab}&cat=${cat}${id ? `&id=${id}` : ""}`);
   };
 
-  switch (options) {
+  switch (params.get("tab")) {
     case "mail":
       return (
         <>
           <div className="mt-6">
-            <Button className="ml-4 w-40">
-              <MdModeEditOutline />
+            <Button className="ml-4 w-40 bg-active">
+              <MdModeEditOutline className="mr-2" />
               Compose
             </Button>
           </div>
           <div className="mt-6 flex flex-col gap-y-3 pl-2">
             <button
-              className={`bg-three text-md h-8 pl-4 text-left font-semibold ${params.get("cat") === "inbox" || params.get("cat") === null ? "rounded-l-3xl" : "w-[270px] rounded-3xl"}`}
+              className={`text-md h-8 pl-4 text-left font-semibold ${params.get("cat") === "inbox" || params.get("cat") === null ? "rounded-l-3xl bg-active" : "w-[270px] rounded-3xl"}`}
               onClick={() => handleCatChange("inbox")}
             >
               Inbox
             </button>
             <button
-              className={`bg-three text-md h-8 pl-4 text-left font-semibold ${params.get("cat") === "sent" ? "rounded-l-3xl" : "w-[270px] rounded-3xl"}`}
+              className={`text-md h-8 pl-4 text-left font-semibold ${params.get("cat") === "sent" ? "rounded-l-3xl bg-active" : "w-[270px] rounded-3xl"}`}
               onClick={() => handleCatChange("sent")}
             >
               Sent
             </button>
             <button
-              className={`bg-three text-md h-8 pl-4 text-left font-semibold ${params.get("cat") === "starred" ? "rounded-l-3xl" : "w-[270px] rounded-3xl"}`}
+              className={`text-md h-8 pl-4 text-left font-semibold ${params.get("cat") === "starred" ? "rounded-l-3xl bg-active" : "w-[270px] rounded-3xl"}`}
               onClick={() => handleCatChange("starred")}
             >
               Starred
