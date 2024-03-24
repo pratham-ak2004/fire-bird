@@ -37,7 +37,6 @@ function Component() {
         <Label
           className={`text-3xl ${theme === "light" ? "text-black" : "text-white"}`}
         >
-          {" "}
           Loading your mails...
         </Label>
         <Skeleton className={`custom-animation h-2 w-10 bg-slate-500`} />

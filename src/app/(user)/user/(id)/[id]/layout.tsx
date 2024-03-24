@@ -5,7 +5,9 @@ import { TRPCReactProvider } from "~/trpc/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ThemeProvider } from "~/app/_components/theme-provider";
 
-import SideBar from "~/app/_components/user-componects/sideBar";
+import SideBar from "~/app/_components/user-components/sideBar";
+import { Toaster } from "~/components/ui/toaster";
+import UserNavBar from "~/app/_components/user-components/navbar";
 
 export const metadata = {
   title: "Fire Bird",
@@ -13,43 +15,28 @@ export const metadata = {
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-sans",
-});
-
 export default function UserLayout({
   children,
-  content
+  content,
 }: {
   children: React.ReactNode;
-  content: React.ReactNode
+  content: React.ReactNode;
 }) {
   return (
-    <ThemeProvider
-      attribute="class"
-      defaultTheme="system"
-      enableSystem
-      disableTransitionOnChange
-    >
-      <TRPCReactProvider>
-        <SpeedInsights />
-        <main className="flex flex-row bg-inactive">
-          <SideBar />
-          <div className="flex h-screen w-full flex-row">
+    <main className="bg-inactive flex flex-row">
+      <SideBar />
+      <div className="flex h-screen w-full flex-row">
         {children}
-            
-            <div className="flex grow flex-col">
-              <div className="h-20">nav</div>
-              <div className="bg-inactive grow rounded-tl-3xl">
-                <div className="bg-inactive h-full w-full rounded-tl-2xl border-l-4 border-t-4 border-black dark:border-white">
-                  {content}
-                </div>
-              </div>
+        <div className="flex grow flex-col">
+          <UserNavBar />
+          <div className="bg-inactive h-[90%] grow rounded-tl-3xl">
+            <div className="bg-inactive h-full w-full rounded-tl-2xl border-l-4 border-t-4 border-black dark:border-white">
+              {content}
             </div>
           </div>
-        </main>
-      </TRPCReactProvider>
-    </ThemeProvider>
+        </div>
+      </div>
+      <Toaster />
+    </main>
   );
 }

@@ -17,7 +17,7 @@ export default function SideBar() {
   return (
     <div className="flex h-screen flex-col items-center justify-between px-2 py-4 border-r-2">
       <div className="flex flex-col gap-4 items-center">
-        <Link className={`size-10  p-1 ${params.get("tab") === "mail" ? "bg-active rounded-md" : ""}`} href={{ pathname: pathname, query: { tab: "mail" } }}>
+        <Link className={`size-10  p-1 ${params.get("tab") === "mail" || params.get("tab") === null ? "bg-active rounded-md" : ""}`} href={{ pathname: pathname, query: { tab: "mail" } }}>
           <IoMdMail className="size-8 rounded-sm" />
         </Link>
         <Link className={`size-10  p-1 ${params.get("tab") === "chat" ? "bg-active rounded-md" : ""}`} href={{ pathname: pathname, query: { tab: "chat" } }}>

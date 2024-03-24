@@ -22,8 +22,8 @@ export default function UserLayout({
   children: React.ReactNode; 
 }) {  
   return (
-    <html lang="en" className="w-screen h-screen">
-      <body className={`font-sans ${inter.variable} w-screen h-screen`}>
+    <html lang="en">
+      <body className={`font-sans ${inter.variable}`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
