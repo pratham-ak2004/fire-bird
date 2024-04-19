@@ -6,10 +6,10 @@ import {
 } from "next-auth";
 import { type Adapter } from "next-auth/adapters";
 import GoogleProvider from "next-auth/providers/google";
-import CredentialsProvider from "next-auth/providers/credentials";
+// import CredentialsProvider from "next-auth/providers/credentials";
 import { env } from "~/env";
 import { db } from "~/server/db";
-import { EmailUser } from "@prisma/client";
+// import { EmailUser } from "@prisma/client";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -55,6 +55,7 @@ export const authOptions: NextAuthOptions = {
     }),
 
     // Custom Email Provider
+    /*
     CredentialsProvider({
       name: "Credentials",
       credentials: {
@@ -88,6 +89,7 @@ export const authOptions: NextAuthOptions = {
         }
       },
     }),
+    */
 
     // Custom Oauth Provider
     /*

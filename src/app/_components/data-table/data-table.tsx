@@ -3,6 +3,7 @@ import React from "react";
 import { FaRegStar, FaStar } from "react-icons/fa";
 import { SlOptions } from "react-icons/sl";
 import { Button } from "~/components/ui/button";
+import { Email } from "~/app/(user)/user/(id)/[id]/@content/page";
 
 import {
   DropdownMenu,
@@ -21,8 +22,19 @@ import {
   TableHeader,
   TableRow,
 } from "~/components/ui/table";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogFooter,
+} from "~/components/ui/dialog";
 
 export function DataTable(props: any) {
+  const [target, setTarget] = React.useState<Email | undefined>(undefined);
+
   function handleStarredToggle(
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     id: string,
@@ -95,99 +107,122 @@ export function DataTable(props: any) {
 
   return (
     <>
-      <div className="h-full overflow-y-scroll">
-        <Table>
-          {/* <TableCaption>A list of your recent invoices.</TableCaption> */}
-          {props.data.length === 0 && (
-            <TableCaption className="text-lg">
-              You dont have any mails yet
-            </TableCaption>
-          )}
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-20"></TableHead>
-              <TableHead className="w-72 text-center">From</TableHead>
-              <TableHead className="min-w-72 text-left">Subject</TableHead>
-              <TableHead className="w-24">Time</TableHead>
-              <TableHead className="w-20"></TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody className="h-[90%] overflow-y-auto">
-            {props.data.map((item: any, index: number) => {
-              if (item !== undefined) {
-                return (
-                  <TableRow key={index}>
-                    <TableCell className="flex w-20 flex-row">
-                      <Button
-                        className="bg-inactive hover:bg-backgroun"
-                        onClick={(
-                          e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-                        ) => {
-                          handleStarredToggle(e, item.id);
-                        }}
+      <Dialog>
+        <div className="h-full overflow-y-scroll">
+          <Table>
+            {/* <TableCaption>A list of your recent invoices.</TableCaption> */}
+            {props.data.length === 0 && (
+              <TableCaption className="text-lg">
+                You dont have any mails yet
+              </TableCaption>
+            )}
+            <TableHeader>
+              <TableRow>
+                <TableHead className="w-20"></TableHead>
+                <TableHead className="w-72 text-center">From</TableHead>
+                <TableHead className="min-w-72 text-left">Subject</TableHead>
+                <TableHead className="w-24">Time</TableHead>
+                <TableHead className="w-20"></TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody className="h-[90%] overflow-y-auto">
+              {props.data.map((item: any, index: number) => {
+                if (item !== undefined) {
+                  return (
+                    <TableRow key={index}>
+                      <TableCell className="flex w-20 flex-row">
+                        <Button
+                          className="bg-inactive hover:bg-backgroun"
+                          onClick={(
+                            e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+                          ) => {
+                            handleStarredToggle(e, item.id);
+                          }}
+                        >
+                          {item?.starred.includes(props.email) ? (
+                            <FaStar className="size-5" />
+                          ) : (
+                            <FaRegStar className="size-5" />
+                          )}
+                        </Button>
+                      </TableCell>
+                      <TableCell className="w-72 min-w-72 truncate text-center">
+                        {item?.from}
+                      </TableCell>
+                      <DialogTrigger
+                        className="mb-3 h-full w-full"
+                        asChild
+                        key={index}
+                        onClick={() => setTarget(item)}
                       >
-                        {item?.starred.includes(props.email) ? (
-                          <FaStar className="size-5" />
-                        ) : (
-                          <FaRegStar className="size-5" />
-                        )}
-                      </Button>
-                    </TableCell>
-                    <TableCell className="w-72 min-w-72 truncate text-center">
-                      {item?.from}
-                    </TableCell>
-                    <TableCell className="text-left">{item?.subject}</TableCell>
-                    <TableCell className="text-left">
-                      {getHourMinutes(item?.sentAt)}
-                    </TableCell>
-                    <TableCell className="w-20">
-                      <DropdownMenu>
-                        <DropdownMenuTrigger>
-                          {/* className="bg-inactive hover:bg-background" */}
-                          <SlOptions className="size-4" />
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent>
-                          {/* <DropdownMenuLabel>My Account</DropdownMenuLabel> */}
-                          {/* <DropdownMenuSeparator /> */}
-                          <DropdownMenuItem>
-                            <span
-                              className="bg-inactive hover:bg-background"
-                              onClick={(
-                                e: React.MouseEvent<
-                                  HTMLButtonElement,
-                                  MouseEvent
-                                >,
-                              ) => {
-                                handleStarredToggle(e, item?.id);
-                              }}
-                            >
-                              Star
-                            </span>
-                          </DropdownMenuItem>
-                          <DropdownMenuItem>
-                            <span
-                              onClick={(
-                                e: React.MouseEvent<
-                                  HTMLButtonElement,
-                                  MouseEvent
-                                >,
-                              ) => {
-                                handleDelete(e, item?.id);
-                              }}
-                            >
-                              Delete
-                            </span>
-                          </DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </TableCell>
-                  </TableRow>
-                );
-              }
-            })}
-          </TableBody>
-        </Table>
-      </div>
+                        <TableCell className="text-left">
+                          {item?.subject}
+                        </TableCell>
+                      </DialogTrigger>
+                      <TableCell className="text-left">
+                        {getHourMinutes(item?.sentAt)}
+                      </TableCell>
+                      <TableCell className="w-20">
+                        <DropdownMenu>
+                          <DropdownMenuTrigger>
+                            {/* className="bg-inactive hover:bg-background" */}
+                            <SlOptions className="size-4" />
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent>
+                            {/* <DropdownMenuLabel>My Account</DropdownMenuLabel> */}
+                            {/* <DropdownMenuSeparator /> */}
+                            <DropdownMenuItem>
+                              <span
+                                className="bg-inactive hover:bg-background"
+                                onClick={(
+                                  e: React.MouseEvent<
+                                    HTMLButtonElement,
+                                    MouseEvent
+                                  >,
+                                ) => {
+                                  handleStarredToggle(e, item?.id);
+                                }}
+                              >
+                                Star
+                              </span>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>
+                              <span
+                                onClick={(
+                                  e: React.MouseEvent<
+                                    HTMLButtonElement,
+                                    MouseEvent
+                                  >,
+                                ) => {
+                                  handleDelete(e, item?.id);
+                                }}
+                              >
+                                Delete
+                              </span>
+                            </DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      </TableCell>
+                    </TableRow>
+                  );
+                }
+              })}
+            </TableBody>
+          </Table>
+        </div>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{target?.from}</DialogTitle>
+            <DialogTitle className="text-md">
+              Subject: {target?.subject}
+            </DialogTitle>
+            <DialogDescription>{target?.body}</DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            {/* <Button type="submit">Confirm</Button> */}
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </>
   );
 }
